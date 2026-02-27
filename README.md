@@ -180,7 +180,18 @@ Once agent routers are deployed, market data flows to the agents and trades shou
 
 <br>
 
-### Data Recording
+### 5. (Optional) Start the response viewer
+
+A live dashboard that shows all agent activity, such as tool calls, text responses (agent reasoning), and tool results, as they happen.
+
+```bash
+uv run python response_viewer.py --bootstrap-servers <broker-url>
+# Or, source .venv/bin/activate && python response_viewer.py --bootstrap-servers <broker-url>
+```
+
+<br>
+
+## Data Recording
 
 All trades and periodic portfolio snapshots are automatically saved to CSV files in the `data/` directory. Each session produces two files:
 
@@ -196,17 +207,6 @@ uv run python tools_and_dashboard.py --bootstrap-servers <broker-url> --snapshot
 To disable recording entirely, pass `--snapshot-interval 0`.
 
 For full column descriptions and examples, see [docs/csv-data-recording.md](docs/csv-data-recording.md).
-
-<br>
-
-### 5. (Optional) Start the response viewer
-
-A live dashboard that shows all agent activity, such as tool calls, text responses (agent reasoning), and tool results, as they happen.
-
-```bash
-uv run python response_viewer.py --bootstrap-servers <broker-url>
-# Or, source .venv/bin/activate && python response_viewer.py --bootstrap-servers <broker-url>
-```
 
 <br>
 
