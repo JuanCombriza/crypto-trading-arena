@@ -102,23 +102,39 @@ class ArenaConfig(BaseModel):
         return None
 
 
+# Whitelist of environment variables that are safe to resolve in configuration
+ALLOWED_CONFIG_ENV_VARS = {
+    "BINANCE_API_KEY",
+    "BINANCE_SECRET_KEY",
+    "COINBASE_API_KEY",
+    "COINBASE_SECRET_KEY",
+    "OPENAI_API_KEY",
+    "OPENROUTER_API_KEY",
+    "ANTHROPIC_API_KEY",
+    "PORT",
+    "HOST",
+    "LOG_LEVEL"
+}
+
 def resolve_env_vars(value: Any, path: str = "root") -> Any:
-    """Recursively resolve environment variables in a value.
+    """Recursively resolve environment variables in a value with safety checks.
 
     Args:
         value: The value to resolve env vars in.
-        path: Current path for error reporting (e.g., "llm_providers.openai.api_key").
+        path: Current path for error reporting.
 
     Returns:
         The value with env vars resolved.
-
-    Raises:
-        ValueError: If a referenced environment variable is not set.
     """
     if isinstance(value, str):
         match = re.match(r'^\$\{([^}]+)\}$', value)
         if match:
             env_var = match.group(1)
+            if env_var not in ALLOWED_CONFIG_ENV_VARS:
+                raise ValueError(
+                    f"Access to environment variable '{env_var}' is restricted for security reasons (at {path})"
+                )
+            
             env_value = os.getenv(env_var)
             if env_value is None:
                 raise ValueError(
